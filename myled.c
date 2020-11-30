@@ -21,7 +21,6 @@ static ssize_t led_write(struct file* filp, const char* buf, size_t count, loff_
 	if(copy_from_user(&c,buf,sizeof(char)))
 		return -EFAULT;
 
-//	printk(KERN_INFO "receive %c\n",c);
 	if(c == '0')
 		gpio_base[10] = 1 << 25;
 	else if(c == '1')
@@ -30,22 +29,9 @@ static ssize_t led_write(struct file* filp, const char* buf, size_t count, loff_
 	return 1;	//読み込んだ文字数を返す（この場合はダミーの１）
 }
 
-static ssize_t sushi_read(struct file* filp, char* buf, size_t count, loff_t* pos)
-{
-	int size = 0;
-	char sushi[] = {'s', 'u', 's', 'h', 'i'};	//寿司の絵文字のバイナリ
-	if(copy_to_user(buf+size,(const char *)sushi, sizeof(sushi))){
-		printk(KERN_INFO "sushi : copy_to_user failed\n" );
-		return -EFAULT;
-	}
-	size += sizeof(sushi);
-	return size;
-}
-
 static struct file_operations led_fops = {
 	.owner = THIS_MODULE,
 	.write = led_write,
-	.read = sushi_read
 };
  
 static int __init init_mod(void)//カーネルモジュールの初期化
@@ -92,7 +78,8 @@ static void __exit cleanup_mod(void)//後始末
 	class_destroy(cls);
 	unregister_chrdev_region(dev, 1);
 	printk(KERN_INFO "%s is unloaded.major:%d\n",__FILE__,MAJOR(dev));
+	iounmap(gpio_base);
 }
 
 module_init(init_mod); 		//マクロで関数を登録
-module_exit(cleanup_mod);	//同上                                                                                                                     
+module_exit(cleanup_mod);	//同上                                                                                            
