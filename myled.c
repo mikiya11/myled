@@ -1,10 +1,12 @@
 /*
  *name:		myled
  *Version:	0.0.1
- *By:		CHIBA INSTITUTE OF TECHNOLOGY
+ *author:	CHIBA INSTITUTE OF TECHNOLOGY
  *		Mikiya Makino & Ryuichi Ueda
  *reference:	https://github.com/ryuichiueda/robosys_device_drivers.git
  *Copyright (c)	2020 Mikiya Makino & Ryuichi Ueda
+ *GPL-v3.0 License(https://github.com/mikiya11/myled/blob/main/LICENSE)
+ *README.md(https://github.com/mikiya11/myled/blob/main/README.md)
  * */
 #include<linux/module.h>
 #include<linux/fs.h>
