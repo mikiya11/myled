@@ -1,14 +1,19 @@
-This name is myled.
+このプログラムは、LEDを点滅させ、Raspberry Pi 4 Model B上のubuntuにおいて動作できる。また、点滅回数は自由に設定可能。
 
-This is driver for LED control.
+#使い方
+	`make`
 
-This will make LED blink by the given number.
+	`sudo insmod myled.ko`
 
-The source of the reference blinks LED if it is given 1 and 0.
+	`sudo chmod 666 /dev/myled0`
 
-This was changed on 12.4.2020.
-
-If you want use it, you must input
 	`echo -n [number] > /dev/myled0`
 
-This was created by Mikiya Makino & Ryuichi Ueda.
+を入力。numberには点滅させたい回数を入れる。
+
+#デモ動画
+`https://youtu.be/K4OsGqTQ_y0`
+
+#LICENCE
+
+GNU General Public License v3.0
